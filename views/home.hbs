@@ -1,0 +1,97 @@
+
+<body>
+<br>
+<br>
+<br>
+<br>
+ <main>
+<div class="container">
+  <h1>What We Provide </h1>
+  <br>
+  <br>
+ 
+    <div class="span2">
+      
+        <img src="/images/grocery.jpg" class="circle-image" height="300" width="300">
+        <h3 class="headings">The best and fresh ingredients</h3>
+        <p class="desc">Our team provides you the finest and fresh<br>
+          ingredients to create special meals for<br>
+          your breakfast, lunch and dinner.
+        </p>
+      </div>
+    
+    <div class="span2">
+    
+        <img src="/images/click.jpg" class="circle-image" height="300" width="300">
+        <h3 class="headings">Choose what you like</h3>
+        <p class="desc">You get to choose from the variety<br>
+          of healthy, fresh, delicious meals!<br>
+          We also have menu for vegan people!
+          
+        </p>
+      </div>
+    
+    <div class="span2">
+     
+        <img src="/images/delivery.jpg" class="circle-image" height="300" width="300">
+        <h3 class="headings">Get delivery weekly - for free!</h3>
+        <p class="desc">Your ingredients and meals are always <br>
+          packed well with eco-friendly packages and the <br>
+          delivery is free!
+        </p>
+      </div>
+    
+    <div class="span2">
+     
+        <img src="/images/food.png" class="circle-image" height="300" width="300">
+        <h3 class="headings">Spectacular meals everyday!</h3>
+        <p class="desc">You can order meals everyday.
+          From your collection of choices, we prepare
+          the best meals of any style for you and your loved ones!
+        </p>
+      </div>
+  
+  </div>
+</div>
+<br>
+
+
+<div class="container">
+  
+  <h1>Click the video below to see more details!</h1>
+  <br>
+  <div class="iframe-container">
+  <iframe width="500" height="315" src="https://www.youtube.com/embed/rrFIG7lMM4k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+<br>
+
+  <h1>Our Top Meals</h1>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="menu">
+  <div class="grid">
+   {{#each meals}}
+  {{#if topMeal}}
+  
+      <div class="cardd">
+        <img src={{this.imageUrl}} height="300" width="300">
+        <div class="text">
+          <h2 class="headings">{{this.title}}</h2>
+                  <p class="desc">{{this.included}}<br>
+                    </p>
+                    <button class="button">${{this.price}}</button>
+        </div>
+      </div>
+        {{/if}}
+  {{/each}}
+     
+  </div>
+</div>
+</main>
+<br>
+   
+      
+      </body>

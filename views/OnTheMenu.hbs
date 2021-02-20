@@ -1,0 +1,39 @@
+
+<body>
+  
+  <main>
+    <div class="container">
+  <h1>What's On The Menu</h1>
+  </div>
+ 
+  <br>
+  
+ <div class="menu">
+      {{#each mealKit as |meals|}}
+  <h1>{{@key}}</h1>
+<br>
+  <div class="grid">
+    {{#each meals as |meal|}}
+   <div class="cardd">
+      <img src={{imageUrl}} height="300" width="300">
+        <div class="text">
+          <h2 class="headings">{{title}}</h2>
+            <p class="desc"> {{included}}<br>
+             </p>
+             <p class="desc">Cooking Time: {{cookingTime}}</p>
+              <button class="button">${{price}}</button>
+        </div>
+        </div>
+  {{/each}}
+
+   </div>
+   {{/each}}
+
+<br>
+  <br>
+  </div>
+</main>
+
+ 
+  
+</body>
