@@ -1,5 +1,5 @@
 /************************************************************************************
-* WEB322 – Assignment 2 (Winter 2021)
+* WEB322 – Assignment 3 (Winter 2021)
 * I declare that this assignment is my own work in accordance with Seneca Academic
 * Policy. No part of this assignment has been copied manually or electronically from
 * any other source (including web sites) or distributed to other students.
@@ -12,16 +12,28 @@
 
 var path = require("path");
 var express = require("express");
-
+const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
-const  { getTopMeal, getAllMeal}  
-= require("./models/data.js"); 
+
+const dotenv = require('dotenv');
+dotenv.config({path:"./config/keys.env"});
 
 var app = express();
 
 app.engine('.hbs', exphbs({ 
     extname: '.hbs',
-    defaultLayout: 'main' 
+    defaultLayout: 'main' ,
+    helpers: {
+        // displays form validation error
+		fieldCheck(field, validationMessages) {
+			if (validationMessages != undefined && field in validationMessages)
+				return `
+					<span class="form-error">
+						${validationMessages[field]}
+					</span>
+				`;
+		}
+    }
 }));
 app.set('view engine', '.hbs');
 
@@ -29,30 +41,15 @@ app.set('view engine', '.hbs');
 //include images, css files, etc.
 app.use(express.static(__dirname + "/public"));
 
-// setup a 'route' to listen on the default url path (http://localhost)
-app.get("/", function(req,res){
-    res.render ("home", { meals: getTopMeal()});
-    
-});
+// Load Controllers
+const generalController = require("./controllers/general");
+app.use("/", generalController);
 
-// setup another route to listen on /OnTheMenu
-app.get("/OnTheMenu", function(req,res){
-   // console.log(veganMeals());
-  res.render("OnTheMenu", {
-    mealKit: getAllMeal()}); 
-});
 
-// setup another route to listen on /register
-app.get("/register", function(req,res){
-    res.render ("register");
-   
-});
+// Set up body parser
+app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
 
-// setup another route to listen on /login
-app.get("/login", function(req,res){
-    res.render ("login");
- 
-});
 
 //set up a route to a header page (http://localhost:8080/headers)
 app.get("/headers", (req, res) => {

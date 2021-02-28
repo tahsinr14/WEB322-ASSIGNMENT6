@@ -461,4 +461,7 @@ body, html {
   }
 
 
- 
+  .form-error {
+    display: block;
+    color: red;
+  }
