@@ -5,9 +5,8 @@ copied manually or electronically from any other source
 (including web sites) or distributed to other students.
 Name: Tahsin Rahman
 Student ID: 165063199
-Course: WEB322-MDD
+Course: WEB322-NDD
 ## Project URLs
 GitHub Repository: https://github.com/tahsinr14/WEB322-ASSIGNMENT3
 Heroku URL: https://<app_name>.herokuapp.com/
 
---git remote add origin https://github.com/tahsinr14/WEB322-ASSIGNMENT3.git
