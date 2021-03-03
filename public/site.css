@@ -463,5 +463,5 @@ body, html {
 
   .form-error {
     display: block;
-    color: red;
+    color: rgb(110, 0, 0);
   }

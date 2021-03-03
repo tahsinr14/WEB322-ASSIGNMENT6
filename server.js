@@ -24,8 +24,8 @@ app.engine('.hbs', exphbs({
     extname: '.hbs',
     defaultLayout: 'main' ,
     helpers: {
-        // displays form validation error
-		fieldCheck(field, validationMessages) {
+        // displays form validation error, got from the internet
+		Check(field, validationMessages) {
 			if (validationMessages != undefined && field in validationMessages)
 				return `
 					<span class="form-error">
@@ -69,12 +69,12 @@ app.use(function(err, req, res, next) {
     res.status(500).send("Something is broke!");
 });
 
-var HTTP_PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT;
 
 // call this function after the http server starts listening for requests
 function onHttpStart() {
-  console.log("Express http server listening on: " + HTTP_PORT);
+  console.log(`Web Server is up and running, port ${PORT}`);
 }
 
 // setup http server to listen on HTTP_PORT
-app.listen(HTTP_PORT, onHttpStart);
+app.listen(PORT, onHttpStart);

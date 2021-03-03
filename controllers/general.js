@@ -1,10 +1,12 @@
 
+const sgMail = require("@sendgrid/mail");
 const express = require('express')
 const router = express.Router();
 const bodyParser = require('body-parser');
-const formSubmit = bodyParser.urlencoded({ extended: false });
+const formVal = bodyParser.urlencoded({ extended: false });
 const  { getTopMeal, getAllMeal}  
 = require("../models/data.js"); 
+
 
 //home
 // setup a 'route' to listen on the default url path (http://localhost)
@@ -39,7 +41,8 @@ router.get("/login", (req, res) => {
         title: "Log In"
     });
 });
-router.post("/login", formSubmit, function(req, res, next) {
+//login validation form
+router.post("/login", formVal, function(req, res, login) {
     console.log(req.body);
 
     let validationMessages = new Object();
@@ -57,18 +60,19 @@ if (!password) {
 return Object.keys(validationMessages).length
 				? res.render("general/login", {
 					validationMessages,
+                    title: "Log In",
 					values: req.body
 				})
-				: next();
+				: login();
 
-}, (req, res) => res.redirect("/welcome"));
+}, (req, res) => res.redirect("/"));
    
 
-
-router.post("/register", formSubmit, function (req, res, next) {
+//register validation form
+router.post("/register", formVal, function (req, res, reg) {
     console.log(req.body);
 
-    let validationMessages = new Object();
+    let validationMessages = new Object(); 
     let checkValidation = true;
     
     
@@ -90,68 +94,72 @@ router.post("/register", formSubmit, function (req, res, next) {
         checkValidation = false;
     }
      if (email) {
-        emailregEx = /^\S+@\S+\.\S+$/;
+        emailregEx = /^\S+@\S+\.\S+$/; //normal email regex found on google
         if (!email.match(emailregEx))
         validationMessages['email'] = "Please enter a valid email address.";
         checkValidation = false;
     }
     
 
-    if (!password) {
+    if (password === 0) {
         validationMessages['password'] = "Please enter your password.";
         checkValidation = false;
     }
-     if (password) {
-        passregEx = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[#$@!%&?])[A-Za-z\d#$@!%&?]{6,12}$/;
-        
-        if(!password.match(passregEx))
-        validationMessages['password'] = "Please enter a valid password.";
-        //checkValidation = false;
+    
+    //made up on my own
+    if(password.length < 6) {
+        validationMessages['password'] = "Your password must be at least 6 characters";
     }
-   
-
-    return Object.keys(validationMessages).length
+    else if(password.length > 12) {
+        validationMessages['password'] = "Your password should not be more than 12 characters";
+    }
+    else if (password.search(/[a-z]/i) < 0) {
+        validationMessages['password'] = "Your password must contain at least one lower case letter.";
+    }
+    else if (password.search(/[A-Z]/) < 0) {
+        validationMessages['password'] = "Your password must contain at least one upper case letter.";
+    }
+    else if (password.search(/[0-9]/) < 0) {
+        validationMessages['password'] = "Your password must contain at least one digit.";
+    }
+    else if(password.search(/[!#$%&?@"]/) < 0) {
+        validationMessages['password'] = "Your password must contain at least one symbol.";
+    }
+    if(!password){
+    validationMessages['password'] = "Please enter a valid password.";
+    checkValidation = false;
+   }
+   return Object.keys(validationMessages).length
 				? res.render("general/register", {
+                    title: "Sign Up",
 					validationMessages,
 					values: req.body
 				})
-				: next();
+				: reg();
 
-            },(req, res)=> {
-
-    if (checkValidation) {
-        const sgMail = require("@sendgrid/mail");
-        sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
-
-        const msg = {
+}, (req, res) => {
+   sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
+//message sent to email
+   const msg = {
             to: req.body.email,
             from: "trahman31@myseneca.ca",
-            subject: "Thank you for Signing Up!",
+            subject: "Thank you for Signing Up.",
             html:
                 `
-                <h3>Hello! ${firstname}</h3><br>
+                <h3>Hello! ${req.body.firstname}</h3><br>
                 Welcome to <b>Euphoria Meals</b>!<br>
                 Thank you for joining us!<br>
                 We will do our best to provide you the best service.<br>
                 Enjoy! <br>
                 <i>Tahsin Rahman</i>
                 `
-        };
-
-        // Asyncronously sends the email message.
-        sgMail.send(msg)
-            .then(() => {
-                res.send("Success");
-            })
-            .catch(err => {
-                console.log(`Error ${err}`);
-                res.send("Error");
-            });
-    }
-    
-    res.redirect("/welcome")
+        }
+        sgMail.send(msg);
+       //redirect to welcome page
+                res.redirect("/welcome");
 });
 // welcome page after user login or registration
 router.get("/welcome", (req, res) => res.render("general/welcome"));
 
 module.exports = router;
+
