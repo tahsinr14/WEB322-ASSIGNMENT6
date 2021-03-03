@@ -8,5 +8,6 @@ Student ID: 165063199
 Course: WEB322-NDD
 ## Project URLs
 GitHub Repository: https://github.com/tahsinr14/WEB322-ASSIGNMENT3
-Heroku URL: https://<app_name>.herokuapp.com/
+Heroku URL: https://euphoria-meals.herokuapp.com/
+
 
