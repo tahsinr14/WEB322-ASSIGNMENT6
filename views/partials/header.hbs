@@ -19,9 +19,20 @@ width="300">
         
         <li id="vegan"><a href="#">Vegan Menu</a> </li>
 
-        <li id="login"><a href='/login'>Log In!</a></li>
+       {{#if session.acc}}
+	        		<li>
+                <!--ref: https://docs.airship.com/guides/messaging/user-guide/personalization/dynamic-content/-->
+	        			<a href="{{#eq session.acc.role 'customer'}}/account/customer{{else}}/account/clerk{{/eq}}">
+	        				{{#if session.acc}}
+	        					My Account
+        					{{/if}}
+	        			</a>
+	        		</li>
+	        	{{else}}
+        <li id="login"><a href='/user/login'>Log In!</a></li>
         
-        <li id="reg"><a href='/register'>Sign Up!</a></li>
+        <li id="reg"><a href='/user/register'>Sign Up!</a></li>
+        {{/if}}
       </ul>
     </nav>
 </div>

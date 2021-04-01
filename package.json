@@ -1,18 +1,31 @@
 {
-  "name": "a3",
+  "name": "a4",
   "version": "1.0.0",
-  "description": "",
+  "description": "I declare that this assignment is my own work in accordance with\r the Seneca Academic Policy. No part of this assignment has been\r copied manually or electronically from any other source\r (including web sites) or distributed to other students.\r Name: Tahsin Rahman\r Student ID: 165063199\r Course: WEB322-NDD\r ## Project URLs\r GitHub Repository: https://github.com/tahsinr14/WEB322-ASSIGNMENT3\r Heroku URL: https://euphoria-meals.herokuapp.com/",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Tahsin Rahman",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.4.2",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-handlebars": "^5.2.0"
-  }
+    "express-handlebars": "^5.2.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.12.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tahsinr14/WEB322-ASSIGNMENT3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tahsinr14/WEB322-ASSIGNMENT3/issues"
+  },
+  "homepage": "https://github.com/tahsinr14/WEB322-ASSIGNMENT3#readme"
 }
