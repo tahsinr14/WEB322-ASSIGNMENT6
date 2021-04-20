@@ -1,0 +1,40 @@
+<main>
+    <div class="container">
+        <h1>My Cart</h1>
+        <h3 style="color: #000; text-align: center;">
+            Total Amount: ${{ totalAmount }}
+        </h3>
+    </div>
+    <br><br>
+    {{#if session.cart.length}}    
+        <div class="menu">
+            <div class="grid">
+                {{#each session.cart}}
+                    <div class="cardd">
+                        <img src={{imageUrl}} height="300" width="300">
+                        <div class="text">
+                            <h2 class="headings">{{title}}</h2>
+                            <p class="desc">Price: <b>${{price}}</b></p>
+                            <form method="POST" action="/shopping-cart/update">
+                                <label class="desc">Quantity</label> 
+                                <input type="hidden" name="meal" value="{{ id }}">
+                                <input type="number" name="quantity" value="{{quantity}}">
+                                <button type="submit" style="cursor: pointer;">Update</button>
+                            </form>
+                            <br>
+                            <form action="/shopping-cart/delete" method="post">
+                                <input type="hidden" name="meal" value="{{ id }}">
+                                <button class="submit" style="cursor: pointer;">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+        <a href="/shopping-cart/checkout" id="checkout">Place Order</a>
+    {{else}}
+        <h3 style="text-align: center;">
+            Your cart is empty. Continue to <a href="/onTheMenu">shop</a>
+        </h3>
+    {{/if}}
+</main>

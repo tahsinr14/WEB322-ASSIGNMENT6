@@ -1,0 +1,46 @@
+<div class="log">
+  <h1 class="t1">Edit Meal Kit</h1>
+  <br>
+  <form id="login-form" action="/clerk/update-meal-kit/{{ meal._id }}" method="POST" enctype="multipart/form-data">
+    <fieldset>
+        <label class="info" for="title">Title</label>
+        <input type="text" id="title" name="title" value="{{ meal.title }}" required>
+        <br>
+        <label class="info" for="category">Category</label>
+        <input type="text" id="category" name="category" value="{{ meal.category }}" required>
+        <br>
+        <label class="info" for="included">Includes</label>
+        <input type="text" id="included" name="included" value="{{ meal.included }}" required>
+        <br>
+        <label class="info" for="cookingTime">Cooking Time</label>
+        <input type="text" id="cookingTime" name="cookingTime" value="{{ meal.cookingTime }}" required>
+        <br>
+        <label class="info" for="price">Price</label>
+        <input type="number" id="price" name="price" step=".01" value="{{ meal.price }}" required>
+        <br>
+        <label class="info" for="servings">Servings</label>
+        <input type="number" id="servings" name="servings" value="{{ meal.servings }}" required>
+        <br>
+        <label class="info" for="calories">Calories per serving</label>
+        <input type="number" id="calories" name="calories" value="{{ meal.calories }}" required>
+        <br><br>
+        <label class="info" for="image">Upload image:</label>
+        <input type="file" id="image" name="image" accept="image/*">
+        <br><br><br>
+        <label class="info" for="description">Description</label>
+        <textarea id="description" name="description" required>{{ meal.description }}</textarea>
+        <br>
+        <label for="topMeal">Is a top meal?</label>
+        <select name="topMeal" id="topMeal">
+            <option value="true" {{#if meal.topMeal}}selected{{/if}}>Yes</option>
+            <option value="false" {{#unless meal.topMeal}}selected{{/unless}}>No</option>
+        </select> 
+        <br><br>
+        <div class="form-reg">
+            <input type="submit" value="Submit" class="btn-reg">
+        </div>
+        <br><br>
+        <a href="/clerk/meal-kits">Go back to meal kits</a>
+    </fieldset>
+</form>
+</div>

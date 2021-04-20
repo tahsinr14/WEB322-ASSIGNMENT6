@@ -1,0 +1,21 @@
+<main>
+    <div class="container">
+        <h1>Vegan Meals</h1>
+    </div>
+    <br>
+    <div class="menu">
+        <div class="grid">
+            {{#each meals}}
+                <a href="/{{ _id }}/meal" class="cardd">
+                    <img src={{imageUrl}} height="300" width="300">
+                    <div class="text">
+                        <h2 class="headings">{{title}}</h2>
+                        <p class="desc"> {{included}}<br></p>
+                        <p class="desc">Cooking Time: {{cookingTime}}</p>
+                        <button class="button">${{price}}</button>
+                    </div>
+                </a>
+            {{/each}}
+        </div>
+    </div>
+</main>

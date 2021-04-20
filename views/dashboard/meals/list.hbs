@@ -1,0 +1,25 @@
+<div class="container">
+	<h1>Meals</h1>
+    <h1 class="button">
+        <a href="/clerk/new-meal-kit">Add new meal kit</a>
+    </h1>
+	<hr>
+	<br>
+  <div class="menu">
+    <div class="grid">
+      {{#each meals}}
+        <div class="cardd">
+          <img src={{imageUrl}} height="300" width="300">
+            <div class="text">
+                <h2 class="headings">{{title}}</h2>
+                <p class="desc">{{included}}<br></p>
+                <p class="desc">${{price}}</p>
+                <a href="/clerk/edit-meal-kit/{{_id}}" class="button">
+                    Edit Meal
+                </a>
+            </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

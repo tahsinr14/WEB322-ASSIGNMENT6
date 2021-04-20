@@ -1,0 +1,57 @@
+<main class="menu">
+    <div id="meal" class="container clearfix">
+        <img src="{{ meal.imageUrl }}" alt="{{ meal.title }}" id="mealCover" class="left">
+        <div class="left">
+            <h1 id="mealTitle">{{ meal.title }}</h1>
+            <p id="mealIncludes">{{ meal.included }}</p>
+            <h3 id="mealPrice">${{ meal.price }}</h3>
+            <ul>
+                <li>
+                    <i>Number of Servings:</i>
+                    <span>{{ meal.servings }}</span>
+                </li>
+                <li>
+                    <i>Category:</i>
+                    <span>{{ meal.category }}</span>
+                </li>
+                <li>
+                    <i>Cooking Time:</i>
+                    <span>{{ meal.cookingTime }}</span>
+                </li>
+                <li>
+                    <i>Calories per Serving:</i>
+                    <span>{{ meal.calories }}</span>
+                </li>
+            </ul>
+            <p id="mealDescription">{{ meal.description }}</p>
+            {{#if session.acc}}
+                {{#eq session.acc.role 'customer'}}
+                    {{#if mealInCart}}
+                        <form method="POST" action="/shopping-cart/update">
+                            <label class="desc">Add more or reduce</label> 
+                            <input type="hidden" name="meal" value="{{ mealInCart.id }}">
+                            <input type="number" name="quantity" value="{{ mealInCart.quantity }}">
+                            <button type="submit" style="cursor: pointer;">Update Order</button>
+                        </form>
+                    {{else}}
+                        <form action="/shopping-cart" method="POST">
+                            <input type="hidden" name="meal" value="{{ meal._id }}"/>
+                            <label>Enter Quantity</label>
+                            <input type="number" name="quantity" required/>
+                            <button type="submit">Add to Order</button>
+                        </form>
+                    {{/if}}
+                {{else}}
+                    <p id="mealInCart">
+                        You are not authorized to purchase a meal kit. Only customers are allowed.
+                    </p>
+                {{/eq}}
+            {{else}}
+                <p id="mealInCart">
+                    You must login as a customer to purchase a meal kit.
+                    <a href="/user/login">Proceed to login.</a>
+                </p>
+            {{/if}}
+        </div>
+    </div>
+</main>

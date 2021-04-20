@@ -17,18 +17,26 @@ width="300">
 
         <li id="discount"><a href="#">Discount</a> </li>
         
-        <li id="vegan"><a href="#">Vegan Menu</a> </li>
+        <li id="vegan"><a href="/veganMenu">Vegan Menu</a> </li>
 
        {{#if session.acc}}
-	        		<li>
-                <!--ref: https://docs.airship.com/guides/messaging/user-guide/personalization/dynamic-content/-->
-	        			<a href="{{#eq session.acc.role 'customer'}}/account/customer{{else}}/account/clerk{{/eq}}">
-	        				{{#if session.acc}}
-	        					My Account
-        					{{/if}}
-	        			</a>
-	        		</li>
-	        	{{else}}
+          {{#eq session.acc.role 'customer'}}
+            <li id="cart">
+              <a href='/shopping-cart' class="tooltip">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <span class="tooltiptext">Shopping Cart</span>
+              </a>
+            </li>
+          {{/eq}}
+          <li>
+            <!--ref: https://docs.airship.com/guides/messaging/user-guide/personalization/dynamic-content/-->
+            <a href="{{#eq session.acc.role 'customer'}}/account/customer{{else}}/account/clerk{{/eq}}">
+              {{#if session.acc}}
+                My Account
+              {{/if}}
+            </a>
+          </li>
+	      {{else}}
         <li id="login"><a href='/user/login'>Log In!</a></li>
         
         <li id="reg"><a href='/user/register'>Sign Up!</a></li>

@@ -1,3 +1,5 @@
+const meals = require('./mealKit');
+
 //meal kit items
 var mealKit = [
     {
@@ -104,27 +106,36 @@ var mealKit = [
 
 //for meal by category
 module.exports.getAllMeal = function () {
-  return mealKit.reduce(
-    function (sum, meal) {
-      sum[meal.category] = sum[meal.category] || [];
-      sum[meal.category].push(meal);
-      return sum
-  }, 
-  new Object()
-)
+    return meals.aggregate([
+		{
+			$group: {
+				_id: '$category',
+				meals: {
+					$push: {
+						id: '$_id', 
+						imageUrl: '$imageUrl', 
+						title: '$title', 
+						included: '$included',
+						cookingTime: '$cookingTime',
+						price: '$price'
+					}
+				}
+			}
+		}
+	]);
 };
   
  
 
   //for top meals
-module.exports.getTopMeal = function () {
-    
-    let filtered = mealKit.filter((item) => {
-      console.log(item);
-      return item.topMeal === true;
-    });
-  
-    return filtered;
-  };
-  
- 
+module.exports.getTopMeal = async function () {
+  let mealKit = await meals.find({topMeal: true});
+  return mealKit.map(meal => meal.toJSON());
+};
+
+module.exports.veganMeals = async function () {
+    let mealKit = await meals.find({category: "Vegan Meals"});
+    return mealKit.map(meal => meal.toJSON());
+};  
+
+module.exports.mealList = mealKit;

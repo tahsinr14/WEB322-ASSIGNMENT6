@@ -334,7 +334,7 @@ body, html {
   input[type='password'], input[type='text'],
   input[type='email'],
   select,
-  textarea {
+  textarea, input[type='number'] {
     font-family: 'Source Serif Pro', serif;
     font-size: 15px;
     width: 100%;
@@ -465,6 +465,164 @@ body, html {
     display: block;
     color: rgb(110, 0, 0);
   }
-  :required {
+  /* :required {
     background: rgb(110, 0, 0);
+  } */
+
+#mealCover {
+  width: calc(40% - 40px);
+  height: auto;
+  object-fit: cover;
+  margin: 20px;
+}
+
+#meal > div.left {
+  width: 30%;
+  padding: 20px 5%;
+}
+
+#mealTitle {
+  font-size: 5rem;
+  margin-bottom: 10px;
+}
+
+#mealIncludes {
+  color: #aaa;
+  text-align: center;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+#mealPrice {
+  color: #000;
+  text-align: center;
+  font-size: 2rem;
+}
+
+#meal ul li {
+  display: inline-block;
+  color: rgb(105, 11, 105);
+  margin: 10px;
+}
+
+#meal ul {
+  padding: 0;
+  text-align: center;
+}
+
+#meal ul li i {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+#meal ul li span {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+}
+
+#mealDescription {
+  text-align: center;
+  color: #222;
+  padding: 20px 10px;
+  font-size: 1.2rem;
+}
+
+#meal input[type="number"] {
+  width: 200px;
+  margin: 5px auto 20px;
+  display: block;
+}
+
+#meal button {
+  width: 200px;
+  margin: 0 auto 40px;
+  display: block;
+}
+
+#meal label, #mealInCart {
+  text-align: center;
+  color: #aaa;
+  display: block;
+}
+
+#checkout {
+  display: inline-block;
+  margin: 20px calc(50% - 60px);
+  width: 100px;
+  color: plum;
+  background: #fff;
+  text-align: center;
+  padding: 20px 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: plum;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: calc(100% + 5px);
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: plum transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+@media (max-width: 767px) {
+  .left, .right {
+    float: none;
   }
+
+  #mealCover {
+    width: calc(100% - 40px);
+  }
+
+  #meal > div.left {
+    width: calc(100% - 20px);
+    padding: 20px 10px;
+  }
+}

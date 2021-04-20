@@ -65,31 +65,25 @@
 </div>
 </div>
 <br>
-
   <h1>Our Top Meals</h1>
   <br>
   <br>
   <br>
   <br>
   <div class="menu">
-  <div class="grid">
-   {{#each meals}}
-  {{#if topMeal}}
-  
-      <div class="cardd">
-        <img src={{this.imageUrl}} height="300" width="300">
-        <div class="text">
+    <div class="grid">
+      {{#each meals}}
+        <a href="/{{ this._id }}/meal" class="cardd">
+          <img src={{this.imageUrl}} height="300" width="300">
+          <div class="text">
           <h2 class="headings">{{this.title}}</h2>
-                  <p class="desc">{{this.included}}<br>
-                    </p>
-                    <button class="button">${{this.price}}</button>
-        </div>
-      </div>
-        {{/if}}
-  {{/each}}
-     
+          <p class="desc">{{this.included}}<br></p>
+          <button class="button">${{this.price}}</button>
+          </div>
+        </a>
+      {{/each}}
+    </div>
   </div>
-</div>
 </main>
 <br>
    
