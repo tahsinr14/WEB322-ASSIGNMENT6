@@ -1,5 +1,5 @@
 /************************************************************************************
-* WEB322 – Assignment 4 (Winter 2021)
+* WEB322 – Assignment 6 (Winter 2021)
 * I declare that this assignment is my own work in accordance with Seneca Academic
 * Policy. No part of this assignment has been copied manually or electronically from
 * any other source (including web sites) or distributed to other students.
@@ -16,6 +16,7 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
 
 const dotenv = require('dotenv');
 dotenv.config({path:"./config/keys.env"});
@@ -53,9 +54,20 @@ app.use(session({
     }
 }));
 app.use((req, res, next) => {
+    req.session.cart = Array.isArray(req.session.cart) ? req.session.cart : [];
+    next();
+});
+app.use((req, res, next) => {
     res.locals.session = req.session;
     next();
 });
+
+// Set up body parser
+app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
+
+// manage file uploads
+app.use(fileUpload());
 
 //set up connection to MongoDB
 mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING, {
@@ -92,9 +104,20 @@ app.get('/account/customer', accountController.auth, accountController.accCustom
 // data entry clerk dashboard
 app.get('/account/clerk', accountController.auth, accountController.accClerk, accountController.clerk);
 
-// Set up body parser
-app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(bodyParser.json());
+const loadDataController = require('./controllers/loadData');
+
+// load meal kits data
+app.use('/load-data/meal-kits', loadDataController);
+
+const clerkController = require('./controllers/clerk');
+
+// data clerk backoffice
+app.use('/clerk', clerkController);
+
+const cartController = require('./controllers/cart');
+
+// shopping cart
+app.use('/shopping-cart', cartController);
 
 
 //set up a route to a header page (http://localhost:8080/headers)
